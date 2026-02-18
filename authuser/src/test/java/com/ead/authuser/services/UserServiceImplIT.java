@@ -11,6 +11,7 @@ import com.ead.authuser.errors.PasswordMismatchException;
 import com.ead.authuser.factories.RegistrationBuilder;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class UserServiceImplIT {
 
   @Autowired UserService userService;
@@ -30,7 +32,6 @@ class UserServiceImplIT {
 
   @BeforeEach
   void setup() {
-    userRepository.deleteAll();
     userSaved = userRepository.save(RegistrationBuilder.valid().buildUserModel());
   }
 
