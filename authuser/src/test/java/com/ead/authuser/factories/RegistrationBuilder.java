@@ -1,6 +1,9 @@
 package com.ead.authuser.factories;
 
 import com.ead.authuser.dtos.UserRequest;
+import com.ead.authuser.enums.UserStatus;
+import com.ead.authuser.enums.UserType;
+import com.ead.authuser.models.UserModel;
 
 public final class RegistrationBuilder {
   private String username = "joaovitor";
@@ -48,5 +51,18 @@ public final class RegistrationBuilder {
 
   public UserRequest.Registration build() {
     return new UserRequest.Registration(username, email, password, cpf, phoneNumber, fullName);
+  }
+
+  public UserModel buildUserModel() {
+    UserModel user = new UserModel();
+    user.setUsername(username);
+    user.setEmail(email);
+    user.setPassword(password);
+    user.setFullName(fullName);
+    user.setUserStatus(UserStatus.ACTIVE);
+    user.setUserType(UserType.STUDENT);
+    user.setPhoneNumber(phoneNumber);
+    user.setCpf(cpf);
+    return user;
   }
 }

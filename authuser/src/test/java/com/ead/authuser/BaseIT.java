@@ -1,5 +1,7 @@
 package com.ead.authuser;
 
+import static com.ead.authuser.helpers.JsonMatchers.isBrDateTime;
+import static com.ead.authuser.helpers.JsonMatchers.isUuid;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,5 +43,13 @@ public abstract class BaseIT {
 
   protected <T> T readBody(MvcResult result, Class<T> type) throws Exception {
     return objectMapper.readValue(result.getResponse().getContentAsString(), type);
+  }
+
+  protected static ResultActions assertAuditFields(ResultActions actions, String basePath)
+      throws Exception {
+    return actions
+        .andExpect(jsonPath(basePath + ".id").value(isUuid()))
+        .andExpect(jsonPath(basePath + ".created").value(isBrDateTime()))
+        .andExpect(jsonPath(basePath + ".updated").value(isBrDateTime()));
   }
 }

@@ -3,7 +3,6 @@ package com.ead.authuser.models;
 import com.ead.authuser.enums.UserStatus;
 import com.ead.authuser.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,7 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,8 +21,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
-@JsonInclude(
-    JsonInclude.Include.NON_NULL) // TODO - FIX estamos retornando o model ao invés de um DTO
 @Table(name = "users")
 public class UserModel implements Serializable {
   @Serial private static final long serialVersionUID = 1L;
@@ -69,7 +65,4 @@ public class UserModel implements Serializable {
   @Column(nullable = false)
   @UpdateTimestamp
   private LocalDateTime updated;
-
-  @PostPersist
-  private void teste() {}
 }
