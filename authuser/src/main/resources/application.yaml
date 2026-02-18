@@ -1,0 +1,32 @@
+app:
+  urls:
+    auth:
+      base: auth
+      sign-up: /${app.urls.auth.base}/signup
+    users:
+      base: /users
+
+
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: authuser
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        lob.non-contextual-creation: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        jdbc:
+          time_zone: UTC
+  spring:
+    messages:
+      basename: messages
