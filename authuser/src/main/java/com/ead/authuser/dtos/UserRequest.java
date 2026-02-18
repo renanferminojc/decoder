@@ -1,8 +1,8 @@
 package com.ead.authuser.dtos;
 
+import com.ead.authuser.utils.Constants;
 import com.ead.authuser.validators.annotations.NoWhitespace;
 import com.ead.authuser.validators.annotations.RequiredField;
-import com.ead.authuser.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;

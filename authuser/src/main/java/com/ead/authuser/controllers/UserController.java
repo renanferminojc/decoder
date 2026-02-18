@@ -1,10 +1,14 @@
 package com.ead.authuser.controllers;
 
+import com.ead.authuser.dtos.PageResponse;
 import com.ead.authuser.dtos.UserRequest;
 import com.ead.authuser.services.UserService;
-import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,9 +25,11 @@ public class UserController {
 
   @Autowired private UserService userService;
 
+  @Operation(summary = "List users with pagination")
   @GetMapping
-  public ResponseEntity<List<UserRequest.UserResponse>> getAllUsers() {
-    return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
+  public ResponseEntity<PageResponse<UserRequest.UserResponse>> getAllUsers(
+      @PageableDefault(sort = "created", direction = Sort.Direction.ASC) Pageable pageable) {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.findAll(pageable));
   }
 
   @GetMapping("/{userId}")

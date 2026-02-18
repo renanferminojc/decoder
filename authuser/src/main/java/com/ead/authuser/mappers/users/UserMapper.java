@@ -21,7 +21,7 @@ public interface UserMapper {
   })
   UserRequest.UserResponse toResponse(UserModel model);
 
-  List<UserRequest.UserResponse> toDtoList(List<UserModel> userModelList);
+  List<UserRequest.UserResponse> toResponseList(List<UserModel> models);
 
   UserModel toEntity(UserRequest.Registration userDto);
 }

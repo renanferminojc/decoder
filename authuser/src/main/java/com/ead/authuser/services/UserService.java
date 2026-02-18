@@ -1,11 +1,12 @@
 package com.ead.authuser.services;
 
+import com.ead.authuser.dtos.PageResponse;
 import com.ead.authuser.dtos.UserRequest;
-import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
-  List<UserRequest.UserResponse> findAll();
+  PageResponse<UserRequest.UserResponse> findAll(Pageable pageable);
 
   UserRequest.UserResponse findById(UUID userId) throws Exception;
 
