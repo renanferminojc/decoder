@@ -58,9 +58,9 @@ class AuthenticationControllerIT extends BaseIT {
 
   static Stream<Arguments> conflictCases() {
     return Stream.of(
-            Arguments.of(RegistrationBuilder.valid().build(), "username already in use"),
-            Arguments.of(
-                    RegistrationBuilder.valid().username("another").build(), "email already in use"));
+        Arguments.of(RegistrationBuilder.valid().build(), "username already in use"),
+        Arguments.of(
+            RegistrationBuilder.valid().username("another").build(), "email already in use"));
   }
 
   @ParameterizedTest
