@@ -10,7 +10,7 @@ import com.ead.authuser.errors.NotFoundException;
 import com.ead.authuser.errors.PasswordMismatchException;
 import com.ead.authuser.factories.RegistrationBuilder;
 import com.ead.authuser.models.UserModel;
-import com.ead.authuser.repositories.UserRepository;
+import com.ead.authuser.repositories.user.UserRepository;
 import jakarta.transaction.Transactional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;

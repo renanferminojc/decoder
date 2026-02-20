@@ -10,7 +10,7 @@ import com.ead.authuser.BaseIT;
 import com.ead.authuser.dtos.UserRequest;
 import com.ead.authuser.enums.UserStatus;
 import com.ead.authuser.factories.RegistrationBuilder;
-import com.ead.authuser.repositories.UserRepository;
+import com.ead.authuser.repositories.user.UserRepository;
 import java.util.UUID;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
