@@ -6,7 +6,8 @@ import com.ead.authuser.errors.NotFoundException;
 import com.ead.authuser.errors.PasswordMismatchException;
 import com.ead.authuser.mappers.users.UserMapper;
 import com.ead.authuser.models.UserModel;
-import com.ead.authuser.repositories.UserRepository;
+import com.ead.authuser.repositories.user.UserRepository;
+import com.ead.authuser.repositories.user.UserSpecification;
 import com.ead.authuser.services.UserService;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +28,22 @@ public class UserServiceImpl implements UserService {
   @Override
   public PageResponse<UserRequest.UserResponse> findAll(Pageable pageable) {
     Page<UserModel> page = userRepository.findAll(pageable);
+
+    List<UserRequest.UserResponse> content = userMapper.toResponseList(page.getContent());
+
+    return new PageResponse<>(content, page.getTotalElements(), page.getTotalPages());
+  }
+
+  @Override
+  public PageResponse<UserRequest.UserResponse> searchUsers(
+      UserRequest.UserFilterRequest userFilterRequest, Pageable pageable) {
+    Specification<UserModel> spec =
+        Specification.where(UserSpecification.emailEquals(userFilterRequest.email()))
+            .and(UserSpecification.hasRole(userFilterRequest.role()))
+            .and(
+                UserSpecification.createdBetween(
+                    userFilterRequest.createdFrom(), userFilterRequest.createdTo()));
+    Page<UserModel> page = userRepository.findAll(spec, pageable);
 
     List<UserRequest.UserResponse> content = userMapper.toResponseList(page.getContent());
 

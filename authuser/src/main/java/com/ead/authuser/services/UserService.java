@@ -8,6 +8,9 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
   PageResponse<UserRequest.UserResponse> findAll(Pageable pageable);
 
+  PageResponse<UserRequest.UserResponse> searchUsers(
+      UserRequest.UserFilterRequest userFilterRequest, Pageable pageable);
+
   UserRequest.UserResponse findById(UUID userId) throws Exception;
 
   void delete(UUID userId);

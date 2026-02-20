@@ -6,7 +6,7 @@ import com.ead.authuser.enums.UserType;
 import com.ead.authuser.errors.AlreadyInUseException;
 import com.ead.authuser.mappers.users.UserMapper;
 import com.ead.authuser.models.UserModel;
-import com.ead.authuser.repositories.UserRepository;
+import com.ead.authuser.repositories.user.UserRepository;
 import com.ead.authuser.services.AuthenticationService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +58,14 @@ public class UserController {
       @PathVariable UUID userId, @RequestBody UserRequest.PasswordUpdate updatePasswordDTO) {
     userService.updatePassword(userId, updatePasswordDTO);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+  @Operation(summary = "List users with pagination and filter")
+  @PostMapping
+  public ResponseEntity<PageResponse<UserRequest.UserResponse>> searchUsers(
+      @PageableDefault(sort = "created", direction = Sort.Direction.ASC) Pageable pageable,
+      @RequestBody UserRequest.UserFilterRequest userFilterRequest) {
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(userService.searchUsers(userFilterRequest, pageable));
   }
 }

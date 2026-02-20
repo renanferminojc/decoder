@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface UserRequest {
@@ -44,4 +45,12 @@ public interface UserRequest {
           @JsonProperty("new_password")
           @Size(min = 6, message = "{password.min6}")
           String newPassword) {}
+
+  record UserFilterRequest(
+      String email,
+      String role,
+      @JsonProperty("created_from") @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+          LocalDateTime createdFrom,
+      @JsonProperty("created_to") @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+          LocalDateTime createdTo) {}
 }
