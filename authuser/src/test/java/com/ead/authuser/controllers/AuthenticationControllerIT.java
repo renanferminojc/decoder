@@ -38,8 +38,8 @@ class AuthenticationControllerIT extends BaseIT {
   }
 
   @Test
-  @DisplayName("Deve registrar um usuário com sucesso e salvar no banco")
-  void registerUser_Success() throws Exception {
+  @DisplayName("It should register a user and save it into database")
+  void case1() throws Exception {
     var registration = RegistrationBuilder.valid().build();
 
     UUID id = signupAndGetId(registration);
@@ -65,8 +65,9 @@ class AuthenticationControllerIT extends BaseIT {
 
   @ParameterizedTest
   @MethodSource("conflictCases")
-  void registerUser_DeveRetornar409(UserRequest.Registration second, String expectedMsg)
-      throws Exception {
+  @DisplayName(
+      "It should return 409 when try to register a user with unique constraints already registered")
+  void case2(UserRequest.Registration second, String expectedMsg) throws Exception {
     signupAndGetId(RegistrationBuilder.valid().build());
     postRequest(signUpPath, second)
         .andExpect(status().isConflict())
@@ -74,7 +75,8 @@ class AuthenticationControllerIT extends BaseIT {
   }
 
   @Test
-  void naoDeveConterSenhaNoResponse() throws Exception {
+  @DisplayName("It should not contain password into response")
+  void case3() throws Exception {
     UUID id = signupAndGetId(RegistrationBuilder.valid().build());
 
     mockMvc
@@ -84,21 +86,24 @@ class AuthenticationControllerIT extends BaseIT {
   }
 
   @Test
-  void deveRetornar400QuandoEmailInvalido() throws Exception {
+  @DisplayName("It should return 400 when email is invalid")
+  void case4() throws Exception {
     var invalidPayload = RegistrationBuilder.valid().email("invalid_email").build();
     expectBadRequestWithMessages(
         postRequest(signUpPath, invalidPayload), "must be a well-formed email address");
   }
 
   @Test
-  void deveRetornar400QuandoTiverEspacoNoUsername() throws Exception {
+  @DisplayName("It should return 400 when username is invalid")
+  void case5() throws Exception {
     var invalidPayload = RegistrationBuilder.valid().username("with spaces").build();
     expectBadRequestWithMessages(
         postRequest(signUpPath, invalidPayload), "this field should not have spaces");
   }
 
   @Test
-  void deveRetornar400QuandoOsCamposForemInvalido() throws Exception {
+  @DisplayName("It should return 400 when fields are invalid")
+  void case6() throws Exception {
     var invalida =
         RegistrationBuilder.valid()
             .username(null)

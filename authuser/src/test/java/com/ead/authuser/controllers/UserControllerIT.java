@@ -16,6 +16,7 @@ import com.ead.authuser.helpers.FilesUtils;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.repositories.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void getAllUsers_shouldReturnPageResponse() throws Exception {
+    @DisplayName("Get all users should return page response")
+    void case1() throws Exception {
       final String expected = FilesUtils.loadPayload("responses/user/users-page.json");
 
       final ResultActions resultActions =
@@ -51,7 +53,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void getOneUser_shouldReturnUser() throws Exception {
+    @DisplayName("Get one user should return a user")
+    void case2() throws Exception {
       final String expected = FilesUtils.loadPayload("responses/user/get-user.json");
 
       final ResultActions resultActions =
@@ -63,7 +66,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void updateUser_shouldUpdateProfile() throws Exception {
+    @DisplayName("Update user should update profile")
+    void case3() throws Exception {
       final String body = FilesUtils.loadPayload("responses/user/put-user-body.json");
       final String response = FilesUtils.loadPayload("responses/user/put-user-response.json");
       final ResultActions resultActions =
@@ -79,7 +83,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void updatePassword_shouldReturnNoContent_andPersistNewPassword() throws Exception {
+    @DisplayName("Update password should return no content and persist new password")
+    void case4() throws Exception {
       final String response = FilesUtils.loadPayload("responses/user/put-password-body.json");
       mockMvc
           .perform(
@@ -94,7 +99,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void deleteUser_shouldReturnNoContent_andRemoveFromDb() throws Exception {
+    @DisplayName("Delete user should return no content and remove from data base")
+    void case5() throws Exception {
       mockMvc
           .perform(delete("/users/{userId}", savedUser.getId()))
           .andExpect(status().isNoContent());
@@ -122,7 +128,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void searchUsers_withoutFilters_shouldReturnAllUsers() throws Exception {
+    @DisplayName("Search users without filters should return all users")
+    void case6() throws Exception {
       UserRequest.UserFilterRequest filter =
           new UserRequest.UserFilterRequest(null, null, null, null);
 
@@ -141,7 +148,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void searchUsers_filterByEmail_shouldReturnOnlyMatchingUser() throws Exception {
+    @DisplayName("Search users filtered by email should return only matching user")
+    void case7() throws Exception {
       var filter = new UserRequest.UserFilterRequest(savedUser2.getEmail(), null, null, null);
 
       ResultActions actions =
@@ -160,7 +168,8 @@ class UserControllerIT extends BaseIT {
     }
 
     @Test
-    void searchUsers_withPagination_shouldReturnOneItemPerPage() throws Exception {
+    @DisplayName("Search users with pagination should return one item per page")
+    void case8() throws Exception {
       var filter = new UserRequest.UserFilterRequest(null, null, null, null);
 
       mockMvc
