@@ -1,0 +1,12 @@
+services:
+  postgres-authuser:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: ead-authuser
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123

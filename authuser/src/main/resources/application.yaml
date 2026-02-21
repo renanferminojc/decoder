@@ -30,3 +30,6 @@ spring:
   spring:
     messages:
       basename: messages
+  docker:
+    compose:
+      file: authuser/docker-compose.yaml
