@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,6 +54,6 @@ public class ModuleModel implements Serializable {
   @JoinColumn(name = "course_id")
   CourseModel course;
 
-  @OneToMany(mappedBy = "module")
+  @OneToMany(mappedBy = "modules")
   Set<LessonModule> lessons;
 }
